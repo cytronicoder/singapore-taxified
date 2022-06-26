@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Singapore, taxified</title>
+
+        <link rel="stylesheet" href="index.css" />
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="main">
+                <h1 class="title">Singapore, taxified</h1>
+                <p class="description">🚕 Visualize Singapore taxi locations using real-time taxi availability data from <a href="https://data.gov.sg/dataset/singapore-taxi-availability">data.gov.sg</a>. Refreshes every 30 seconds.</p>
+
+                <div id="map"></div>
+            </div>
+            <div class="footer">
+                <p>A STEMist Hacks project - made with ❤️ by <a href="https://github.com/cytronicoder">Zeyu Yao</a></p>
+            </div>
+        </div>
+
+        <script>
+            // utility function to run a function immediately when setInterval is called
+            (function() {
+                var originalSetInterval = window.setInterval;
+                
+                window.setInterval = function(fn, delay, runImmediately) {
+                    if(runImmediately) fn();
+                    return originalSetInterval(fn, delay);
+                };
+            })();
+
+            // map setup
+            var map = L.map("map").setView([1.366667, 103.800000], 11);
+
+            var tiles = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                maxZoom: 20,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            }).addTo(map);
+
+            // map markers
+            var markerGroup = L.layerGroup().addTo(map);
+
+            // custom marker icon
+            var taxiIcon = L.icon({
+                iconUrl: 'taxi.png',
+                iconSize: [24, 15],
+            });
+
+            // get taxi data
+            setInterval(function() {
+                // clear marker group
+                markerGroup.clearLayers();
+                
+                axios.get('https://api.data.gov.sg/v1/transport/taxi-availability')
+                    .then(function (response) {
+                    const data = response.data;
+
+                    // add new markers
+                    L.geoJSON(data, {
+                        pointToLayer: function (feature, latlng) {
+                            const marker = L.marker(latlng, {icon: taxiIcon});
+                            return marker;
+                        }
+                    }).addTo(markerGroup);
+                    
+                    console.log(`Updated the map with ${data.features[0].properties.taxi_count} taxis at ${data.features[0].properties.timestamp}`);
+                });
+            }, 30000, true);
+        </script>
+    </body>
+
+</html>

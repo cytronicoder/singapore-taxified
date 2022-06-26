@@ -1,2 +1,2 @@
-# singapore-datafied
-📊 Visualize Singapore using real-time APIs from data.gov.sg. Submission to STEMist Hacks 2022.
+# singapore-taxified
+🚕 Visualize Singapore taxi locations using real-time taxi availability data from data.gov.sg. Submission to STEMist Hacks 2022.
