@@ -1,5 +1,5 @@
-# singapore-taxified
-🚕 Visualize Singapore taxi locations using real-time taxi availability data from data.gov.sg. Submission to STEMist Hacks 2022.
+# Singapore, taxified
+*🚕 Visualize Singapore taxi locations using real-time taxi availability data from data.gov.sg. Submission to STEMist Hacks 2022.*
 
 ## Inspiration
 The issue is simple: **Trying to find a taxi near you.**
