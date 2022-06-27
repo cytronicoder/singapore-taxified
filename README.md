@@ -11,7 +11,7 @@ We all had that time when we were looking for a taxi near our home, but we could
 ## How I built it
 I used the [Leaflet.js](https://leafletjs.com/) library to build the map. I used the [data.gov.sg](https://data.gov.sg/) API and axios to get the data. The website is built using plain HTML, CSS, and JavaScript.
 
-## Challenges we ran into
+## Challenges I ran into
 The first challenge I ran into was getting the data from data.gov.sg using axios: The API was a bit tricky to use, and I spent a lot of time testing the code.
 
 Another challenge I ran into was getting the data to be displayed on the map. I had to make sure that the data I got was in the correct format so it can be parsed by the Leaflet.js library later. However, I managed to get the data to be displayed on the map, and I even modified the marker to be a custom taxi icon.
