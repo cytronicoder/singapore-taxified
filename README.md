@@ -1,4 +1,4 @@
-## 📂 This hackathon submission repository is now archived.
+### 📂 This repository is now archived as a past hackathon submission.
 
 # Singapore, taxified
 *🚕 Visualize Singapore taxi locations using real-time taxi availability data from data.gov.sg. Submission to STEMist Hacks 2022.*
